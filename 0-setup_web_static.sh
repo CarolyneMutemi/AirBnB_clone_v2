@@ -2,8 +2,8 @@
 # Sets up the web servers for the deployment of web_static
 
 if ! which nginx > /dev/null 2>&1; then
-	sudo apt update
-	sudo apt install nginx
+	sudo apt update -y > /dev/null 2>&1
+	sudo apt install nginx -y > /dev/null 2>&1
 fi
 sudo mkdir -p /data/web_static/releases/test
 sudo mkdir -p /data/web_static/shared
