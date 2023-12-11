@@ -5,7 +5,7 @@ Has the do_pack function.
 
 import os
 from datetime import datetime
-from fabric.api import local
+from fabric.api import local, hide
 
 
 def do_pack():
@@ -14,10 +14,11 @@ def do_pack():
     Return:
         archive path or None if an error occurs.
     """
-    local("mkdir -p versions")
+    with hide('commands'):
+        local("mkdir -p versions")
     now = datetime.now()
-    file1 = f"versions/web_static_{now.year}{now.month}"
-    file2 = f"{now.month:2d}{now.hour:2d}{now.minute:2d}{now.second:2d}.tgz"
+    file1 = f"versions/web_static_{now.year}{now.month:02d}"
+    file2 = f"{now.day:02d}{now.hour:02d}{now.minute:02d}{now.second:02d}.tgz"
     file_name = file1 + file2
     print(f"Packing web_static to {file_name}")
     file = local(f"tar -czvf {file_name} web_static")
