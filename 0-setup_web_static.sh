@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
-# Script for preping web server
-mkdir -p /data/web_static/releases/test/
-touch /data/web_static/releases/test/index.html
-echo "<html>\n<head></head>\n<body>\
-	</body></html>" >> /data/web_static/releases/test/index.html
+# Sets up the web servers for the deployment of web_static
 
-ln -s  /data/web_static/releases/test/index.html  /data/web_static/releases/test/
-chown -hR ubuntu:ubuntu /data/
+if ! which nginx > /dev/null 2>&1; then
+	sudo apt update -y > /dev/null 2>&1
+	sudo apt install nginx -y > /dev/null 2>&1
+fi
+sudo mkdir -p /data/web_static/releases/test
+sudo mkdir -p /data/web_static/shared
+echo "Hello there! I'm Mitten." | sudo tee /data/web_static/releases/test/index.html > /dev/null 2>&1
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+sudo chown -R ubuntu:ubuntu /data/
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
+replacement="location /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n\n\tlocation / {"
+if ! grep "hbnb_static" /etc/nginx/sites-available/default > /dev/null 2>&1; then
+	sudo sed -i "0,/location \/ {/s||$replacement|" /etc/nginx/sites-available/default
+fi
+sudo service nginx restart
