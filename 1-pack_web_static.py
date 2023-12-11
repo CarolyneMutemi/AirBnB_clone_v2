@@ -19,6 +19,7 @@ def do_pack():
     file1 = f"versions/web_static_{now.year}{now.month}"
     file2 = f"{now.month:2d}{now.hour:2d}{now.minute:2d}{now.second:2d}.tgz"
     file_name = file1 + file2
+    print(f"Packing web_static to {file_name}")
     file = local(f"tar -czvf {file_name} web_static")
     if file.failed:
         return None
