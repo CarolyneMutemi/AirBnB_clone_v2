@@ -25,6 +25,6 @@ def do_pack():
         local(f"tar -czvf {file_name} web_static")
         file_size = os.path.getsize(f'{file_name}')
         print(f'web_static packed: {file_name} -> {file_size}Bytes')
-        return True
+        return file_name
     except Exception:
-        return False
+        return None
