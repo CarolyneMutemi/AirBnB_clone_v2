@@ -21,7 +21,9 @@ def do_deploy(archive_path):
         new_dir = archive_path.strip('.tgzversions/')
         new = f'/data/web_static/releases/{new_dir}'
         run(f"mkdir -p {new}")
-        run(f"tar -xzf /tmp/{new_dir}.tgz -C {new} --strip-components=1")
+        run(f"tar -xzf /tmp/{new_dir}.tgz -C {new}")
+        run(f"mv {new}/web_static/* {new}/")
+        run(f"rm -rf {new}/web_static")
         run(f"rm /tmp/{new_dir}.tgz")
         run("rm -rf /data/web_static/current")
         run(f"ln -s {new} /data/web_static/current")
