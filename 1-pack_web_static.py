@@ -26,5 +26,5 @@ def do_pack():
         file_size = os.path.getsize(f'{file_name}')
         print(f'web_static packed: {file_name} -> {file_size}Bytes')
         return True
-    except:
+    except Exception:
         return False

@@ -28,5 +28,5 @@ def do_deploy(archive_path):
         run(f"ln -s {new} /data/web_static/current")
         print('New version deployed!')
         return True
-    except:
+    except Exception:
         return False
