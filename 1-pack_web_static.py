@@ -21,8 +21,10 @@ def do_pack():
     file2 = f"{now.day:02d}{now.hour:02d}{now.minute:02d}{now.second:02d}.tgz"
     file_name = file1 + file2
     print(f"Packing web_static to {file_name}")
-    file = local(f"tar -czvf {file_name} web_static")
-    if file.failed:
-        return None
-    file_size = os.path.getsize(f'{file_name}')
-    print(f'web_static packed: {file_name} -> {file_size}Bytes')
+    try:
+        local(f"tar -czvf {file_name} web_static")
+        file_size = os.path.getsize(f'{file_name}')
+        print(f'web_static packed: {file_name} -> {file_size}Bytes')
+        return True
+    except:
+        return False
