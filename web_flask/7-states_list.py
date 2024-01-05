@@ -10,10 +10,10 @@ from models.state import State
 app = Flask(__name__)
 
 
-#def func(obj):
-#    """
-#    To sort.
-#    """
+# def func(obj):
+#     """
+#     To sort.
+#     """
 #    return obj.name
 
 
@@ -22,7 +22,7 @@ def get_states():
     """
     The states route.
     """
-    #states = sorted(storage.all(State).values(), key=func)
+    # states = sorted(storage.all(State).values(), key=func)
     states = storage.all(State).values()
     return render_template('7-states_list.html', states=states)
 
