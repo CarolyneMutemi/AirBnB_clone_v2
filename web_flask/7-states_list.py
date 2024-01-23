@@ -15,7 +15,7 @@ def get_states():
     """
     The states route.
     """
-    states = sorted(list(storage.all(State).values()),
+    states = sorted(storage.all(State).values(),
                     key=lambda state: state.name)
     return render_template('7-states_list.html', states=states)
 
@@ -29,4 +29,4 @@ def teardown_db(exception):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port='5000', debug=True)
